@@ -4,7 +4,7 @@
 #
 Name     : numatop
 Version  : 85498d56f87a9cc01d399f7a4635b5e6e3931fe8
-Release  : 1
+Release  : 2
 URL      : https://github.com/intel/numatop/archive/85498d56f87a9cc01d399f7a4635b5e6e3931fe8.tar.gz
 Source0  : https://github.com/intel/numatop/archive/85498d56f87a9cc01d399f7a4635b5e6e3931fe8.tar.gz
 Summary  : No detailed summary available
@@ -14,6 +14,7 @@ BuildRequires : numactl-dev
 BuildRequires : pkgconfig(ncurses)
 Patch1: 0001-Allow-overriding-Makefile-variables.patch
 Patch2: 0002-Enable-installation-to-a-destination-directory.patch
+Patch3: 0003-Makefile-Rename-PREFIXDIR-PREFIX.patch
 
 %description
 Building & Installing NumaTOP
@@ -25,17 +26,18 @@ make
 %setup -q -n numatop-85498d56f87a9cc01d399f7a4635b5e6e3931fe8
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1524849995
-make  %{?_smp_mflags}
+export SOURCE_DATE_EPOCH=1524850485
+make  %{?_smp_mflags} PREFIX=/usr
 
 %install
-export SOURCE_DATE_EPOCH=1524849995
+export SOURCE_DATE_EPOCH=1524850485
 rm -rf %{buildroot}
 %make_install
 

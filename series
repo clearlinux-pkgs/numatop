@@ -1,2 +1,3 @@
 0001-Allow-overriding-Makefile-variables.patch
 0002-Enable-installation-to-a-destination-directory.patch
+0003-Makefile-Rename-PREFIXDIR-PREFIX.patch

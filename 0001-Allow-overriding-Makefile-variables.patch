@@ -1,0 +1,47 @@
+From e835823ed9699bca694004aa7af790b91ea2a8f3 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Fri, 27 Apr 2018 16:58:37 +0000
+Subject: [PATCH] Allow overriding Makefile variables
+
+Setting certain things like PREFIX and CFLAGS from the environment is
+helpful for packaging so update Makefile to allow overriding defaults.
+---
+ Makefile | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index bf1c95c..c4a52ab 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,12 +1,12 @@
+-PREFIXDIR = /usr/local
+-BINDIR = /bin
+-MANDIR = /usr/share/man/man8
++PREFIXDIR := /usr/local
++BINDIR := /bin
++MANDIR := /share/man/man8
+ PROG = numatop
+-CC = gcc
+-LD = gcc
+-CFLAGS = -g -Wall -O2
++CC := gcc
++LD := gcc
++CFLAGS := -g -Wall -O2
+ TEST_CFLAGS = -g -Wall -O0
+-LDFLAGS = -g
++LDFLAGS := -g
+ LDLIBS = -lncurses -lpthread -lnuma
+ 
+ NUMATOP_OBJS = numatop.o
+@@ -75,7 +75,7 @@ $(TEST_PROG): $(TEST_OBJS) $(COMMON_OBJS) $(OS_OBJS) $(ARCH_OBJS) $(TEST_ARCH_OB
+ install: $(PROG)
+ 	install -m 0755 $(PROG) $(PREFIXDIR)$(BINDIR)/
+ 	gzip -c numatop.8 > numatop.8.gz
+-	mv -f numatop.8.gz $(MANDIR)/
++	mv -f numatop.8.gz $(PREFIXDIR)$(MANDIR)/
+ 
+ clean:
+ 	rm -rf *.o $(ARCH_PATH)/*.o $(TEST_PATH)/*.o $(TEST_ARCH_PATH)/*.o \
+-- 
+2.17.0
+

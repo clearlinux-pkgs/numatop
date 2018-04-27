@@ -1,0 +1,31 @@
+From d8fc195c9db49f8801a27eef62a266fe3683052a Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Fri, 27 Apr 2018 17:01:39 +0000
+Subject: [PATCH 2/2] Enable installation to a destination directory
+
+Add DESTDIR to the install target to specify an install root to
+improve ease of packaging. Also create installation destination
+directories with install -D.
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index c4a52ab..bf11509 100644
+--- a/Makefile
++++ b/Makefile
+@@ -73,9 +73,9 @@ $(TEST_PROG): $(TEST_OBJS) $(COMMON_OBJS) $(OS_OBJS) $(ARCH_OBJS) $(TEST_ARCH_OB
+ 	$(ARCH_OBJS) $(TEST_ARCH_OBJS) $(LDLIBS)
+ 
+ install: $(PROG)
+-	install -m 0755 $(PROG) $(PREFIXDIR)$(BINDIR)/
++	install -m 0755 -D $(PROG) $(DESTDIR)$(PREFIXDIR)$(BINDIR)/$(PROG)
+ 	gzip -c numatop.8 > numatop.8.gz
+-	mv -f numatop.8.gz $(PREFIXDIR)$(MANDIR)/
++	install -m 0755 -D numatop.8.gz $(DESTDIR)$(PREFIXDIR)$(MANDIR)/numatop.8.gz
+ 
+ clean:
+ 	rm -rf *.o $(ARCH_PATH)/*.o $(TEST_PATH)/*.o $(TEST_ARCH_PATH)/*.o \
+-- 
+2.17.0
+

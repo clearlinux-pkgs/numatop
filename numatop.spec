@@ -4,12 +4,14 @@
 #
 Name     : numatop
 Version  : 85498d56f87a9cc01d399f7a4635b5e6e3931fe8
-Release  : 2
+Release  : 3
 URL      : https://github.com/intel/numatop/archive/85498d56f87a9cc01d399f7a4635b5e6e3931fe8.tar.gz
 Source0  : https://github.com/intel/numatop/archive/85498d56f87a9cc01d399f7a4635b5e6e3931fe8.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
+Requires: numatop-bin
+Requires: numatop-doc
 BuildRequires : numactl-dev
 BuildRequires : pkgconfig(ncurses)
 Patch1: 0001-Allow-overriding-Makefile-variables.patch
@@ -22,6 +24,22 @@ Building & Installing NumaTOP
 1. To build NumaTOP
 make
 
+%package bin
+Summary: bin components for the numatop package.
+Group: Binaries
+
+%description bin
+bin components for the numatop package.
+
+
+%package doc
+Summary: doc components for the numatop package.
+Group: Documentation
+
+%description doc
+doc components for the numatop package.
+
+
 %prep
 %setup -q -n numatop-85498d56f87a9cc01d399f7a4635b5e6e3931fe8
 %patch1 -p1
@@ -33,15 +51,21 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1524850485
-make  %{?_smp_mflags} PREFIX=/usr
+export SOURCE_DATE_EPOCH=1524860475
+make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1524850485
+export SOURCE_DATE_EPOCH=1524860475
 rm -rf %{buildroot}
-%make_install
+%make_install PREFIX=/usr
 
 %files
 %defattr(-,root,root,-)
-/usr/local/bin/numatop
-/usr/local/share/man/man8/numatop.8.gz
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/numatop
+
+%files doc
+%defattr(-,root,root,-)
+%doc /usr/share/man/man8/*

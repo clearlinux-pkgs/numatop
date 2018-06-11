@@ -4,14 +4,14 @@
 #
 Name     : numatop
 Version  : 2.0
-Release  : 6
+Release  : 9
 URL      : https://github.com/intel/numatop/archive/v2.0.tar.gz
 Source0  : https://github.com/intel/numatop/archive/v2.0.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
 Requires: numatop-bin
-Requires: numatop-man
+Requires: numatop-doc
 BuildRequires : numactl-dev
 BuildRequires : pkgconfig(ncurses)
 
@@ -24,18 +24,17 @@ make
 %package bin
 Summary: bin components for the numatop package.
 Group: Binaries
-Requires: numatop-man
 
 %description bin
 bin components for the numatop package.
 
 
-%package man
-Summary: man components for the numatop package.
-Group: Default
+%package doc
+Summary: doc components for the numatop package.
+Group: Documentation
 
-%description man
-man components for the numatop package.
+%description doc
+doc components for the numatop package.
 
 
 %prep
@@ -46,16 +45,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1528685994
+export SOURCE_DATE_EPOCH=1528737788
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1528685994
+export SOURCE_DATE_EPOCH=1528737788
 rm -rf %{buildroot}
 %make_install PREFIX=/usr
-## make_install_append content
-chmod a-x %{buildroot}/usr/share/man/man8/*
-## make_install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -64,6 +60,6 @@ chmod a-x %{buildroot}/usr/share/man/man8/*
 %defattr(-,root,root,-)
 /usr/bin/numatop
 
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man8/numatop.8.gz
+%files doc
+%defattr(0644,root,root,0755)
+%doc /usr/share/man/man8/*

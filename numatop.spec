@@ -4,7 +4,7 @@
 #
 Name     : numatop
 Version  : 2.1
-Release  : 11
+Release  : 12
 URL      : https://github.com/intel/numatop/archive/v2.1.tar.gz
 Source0  : https://github.com/intel/numatop/archive/v2.1.tar.gz
 Summary  : No detailed summary available
@@ -27,20 +27,14 @@ BuildRequires : pkgconfig(ncursesw)
 Patch1: fix-build.patch
 
 %description
-Building
----------
-1. To build mgen
-cd <numatop home>/
-make test
-2. To clean the built objects
-cd <numatop home>/
-make clean
+## Building & Installing NumaTOP
+Numatop uses autotools. If you're compiling from git, run `autogen.sh`
+and then `make`. Otherwise, use `./configure && make`.
 
 %package bin
 Summary: bin components for the numatop package.
 Group: Binaries
 Requires: numatop-license = %{version}-%{release}
-Requires: numatop-man = %{version}-%{release}
 
 %description bin
 bin components for the numatop package.
@@ -64,29 +58,38 @@ man components for the numatop package.
 
 %prep
 %setup -q -n numatop-2.1
+cd %{_builddir}/numatop-2.1
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1542311369
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604100369
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %autogen --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1542311369
+export SOURCE_DATE_EPOCH=1604100369
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/numatop
-cp COPYING %{buildroot}/usr/share/package-licenses/numatop/COPYING
+cp %{_builddir}/numatop-2.1/COPYING %{buildroot}/usr/share/package-licenses/numatop/54282366b8a5e20fe355424383e0ca808b632b29
 %make_install PREFIX=/usr
 
 %files
@@ -98,7 +101,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/numatop/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/numatop/COPYING
+/usr/share/package-licenses/numatop/54282366b8a5e20fe355424383e0ca808b632b29
 
 %files man
 %defattr(0644,root,root,0755)

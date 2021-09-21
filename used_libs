@@ -1,5 +1,4 @@
 libc.so.6
 libncursesw.so.6
 libnuma.so.1
-libpthread.so.0
 libtinfow.so.6

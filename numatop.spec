@@ -4,9 +4,9 @@
 #
 Name     : numatop
 Version  : 2.3
-Release  : 14
-URL      : https://github.com/intel/numatop/archive/v2.2/numatop-2.3.tar.gz
-Source0  : https://github.com/intel/numatop/archive/v2.2/numatop-2.3.tar.gz
+Release  : 15
+URL      : https://github.com/intel/numatop/archive/v2.3/numatop-2.3.tar.gz
+Source0  : https://github.com/intel/numatop/archive/v2.3/numatop-2.3.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
@@ -47,7 +47,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1667935706
+export SOURCE_DATE_EPOCH=1667937308
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -67,7 +67,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1667935706
+export SOURCE_DATE_EPOCH=1667937308
 rm -rf %{buildroot}
 %make_install PREFIX=/usr
 

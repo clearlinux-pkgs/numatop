@@ -4,7 +4,7 @@
 #
 Name     : numatop
 Version  : 2.3
-Release  : 15
+Release  : 16
 URL      : https://github.com/intel/numatop/archive/v2.3/numatop-2.3.tar.gz
 Source0  : https://github.com/intel/numatop/archive/v2.3/numatop-2.3.tar.gz
 Summary  : No detailed summary available

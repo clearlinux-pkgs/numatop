@@ -6,10 +6,10 @@
 # autospec commit: 5424026
 #
 Name     : numatop
-Version  : 2.5
-Release  : 20
-URL      : https://github.com/intel/numatop/archive/v2.5/numatop-2.5.tar.gz
-Source0  : https://github.com/intel/numatop/archive/v2.5/numatop-2.5.tar.gz
+Version  : 2.5.1
+Release  : 21
+URL      : https://github.com/intel/numatop/archive/v2.5.1/numatop-2.5.1.tar.gz
+Source0  : https://github.com/intel/numatop/archive/v2.5.1/numatop-2.5.1.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause
@@ -56,10 +56,10 @@ man components for the numatop package.
 
 
 %prep
-%setup -q -n numatop-2.5
-cd %{_builddir}/numatop-2.5
+%setup -q -n numatop-2.5.1
+cd %{_builddir}/numatop-2.5.1
 pushd ..
-cp -a numatop-2.5 buildavx2
+cp -a numatop-2.5.1 buildavx2
 popd
 
 %build
@@ -67,7 +67,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1732029823
+export SOURCE_DATE_EPOCH=1732050031
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -120,7 +120,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1732029823
+export SOURCE_DATE_EPOCH=1732050031
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/numatop
 cp %{_builddir}/numatop-%{version}/COPYING %{buildroot}/usr/share/package-licenses/numatop/54282366b8a5e20fe355424383e0ca808b632b29 || :
